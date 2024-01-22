@@ -1,0 +1,32 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block body %}
+  {% for place_image in place_images %}
+  <div class="card m-5" style="width: 18rem;">
+    <img src="{{ place_image.image.url }}" class="card-img-top" alt="...">
+   
+    <div class="card-body">
+        <form action="{% url 'index' %}" method="post"> {% csrf_token %}
+          <input type="hidden" name="placename" value="{{place_image.location_name}}">
+      <input type="text" placeholder="comment" name="comment">
+      <button type="submit" class="mt-2 btn btn-primary">Guss</button>
+    </form>
+    </div>
+  </div>
+    
+   
+  {% endfor %}
+
+  <script>
+    
+    var conditionResult = {{ condition_result|yesno:"true,false" }};
+
+   
+    if (conditionResult) {
+        alert("Correct Guss");
+    }else{
+      alert("Wrong Guss")
+    }
+</script>
+{% endblock %}
